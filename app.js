@@ -4,7 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const seedDB = require('./seed')
 const productRoutes = require('./routes/product')
-
+const ejsMate = require('ejs-mate')
+const methodOverride = require('method-override')
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-aru-app')
@@ -16,12 +17,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping-aru-app')
     console.log(err)
 })
 
-
+app.engine('ejs', ejsMate);
 app.set('view engine' , 'ejs');
 app.set('views' , path.join(__dirname , 'views')); // views folder 
 app.use(express.static(path.join(__dirname , 'public'))); // public folder
-
-
+app.use(express.urlencoded({extended:true}))
+app.use(methodOverride('_method'))
 // seeding database
 //seedDB()
 
