@@ -6,6 +6,7 @@ const seedDB = require('./seed')
 const productRoutes = require('./routes/product')
 const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override')
+const reviewRoutes = require('./routes/review')
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-aru-app')
@@ -27,7 +28,7 @@ app.use(methodOverride('_method'))
 //seedDB()
 
 app.use(productRoutes); //so that harr incoming request ke liye path check kiya jaae
-
+app.use(reviewRoutes); //so that harr incoming request ke liye path check kiya jaae
 
 
 app.listen(8000 , ()=>{

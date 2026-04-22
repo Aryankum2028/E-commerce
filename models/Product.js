@@ -25,5 +25,16 @@ const productSchema = new mongoose.Schema({
         }
     ]
 })
+
+// middleware jo BTS mongodb operations karwane par use hota hai and iske andar pre nd post middleware hote hai which are basically used over the schema and before the model is js class.
+
+productSchema.post('findOneAndDelete' , async function(product){
+    if(product.reviews.length > 0){
+        await Review.deleteMany({_id:{$in:product.reviews}})
+    }
+})
+
+
+
 let Product = mongoose.model('Product' , productSchema);
 module.exports = Product;
